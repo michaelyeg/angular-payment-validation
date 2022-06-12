@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'payment-form',
   templateUrl: './app.component.html'
 })
