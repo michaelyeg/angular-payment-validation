@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import {CreditCardDirectivesModule} from 'angular-cc-library';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,7 +16,8 @@ describe('AppComponent', () => {
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpModule
+        HttpModule,
+        CreditCardDirectivesModule
       ],
       providers: []
     }).compileComponents();
@@ -31,34 +33,36 @@ describe('AppComponent', () => {
   it('card number validation should work', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    app.paymentForm.controls['cardNumber'].setValue("1234123412345678");
-    expect(app.paymentForm.controls['cardNumber'].valid).toBeTruthy();
+    app.paymentForm.controls['card_number'].setValue('1234123412345678');
+    expect(app.paymentForm.controls['card_number'].valid).toBeFalsy();
+    app.paymentForm.controls['card_number'].setValue('4367778679080754');
+    expect(app.paymentForm.controls['card_number'].valid).toBeTruthy();
   }));
 
   it('expiration date validation should work', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    app.paymentForm.controls['expirationMonth'].setValue("134");
-    app.paymentForm.controls['expirationYear'].setValue("2017");
-    expect(app.paymentForm.controls['expirationMonth'].valid).toBeFalsy();
-    expect(app.paymentForm.controls['expirationYear'].valid).toBeTruthy();
+    app.paymentForm.controls['expiry_month'].setValue("134");
+    app.paymentForm.controls['expiry_year'].setValue("2017");
+    expect(app.paymentForm.controls['expiry_month'].valid).toBeFalsy();
+    expect(app.paymentForm.controls['expiry_year'].valid).toBeTruthy();
   }));
 
   it('cvv/cvc validation should work', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    app.paymentForm.controls['cvv'].setValue("677");
-    expect(app.paymentForm.controls['cvv'].valid).toBeTruthy();
+    app.paymentForm.controls['cvc'].setValue("677");
+    expect(app.paymentForm.controls['cvc'].valid).toBeTruthy();
   }));
 
   it('submit button should display the success message', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    app.paymentForm.controls['nameOnCard'].setValue("Mathew Jerome");
-    app.paymentForm.controls['cardNumber'].setValue("3456234567854567");
-    app.paymentForm.controls['expirationMonth'].setValue("11");
-    app.paymentForm.controls['expirationYear'].setValue("2017");
-    app.paymentForm.controls['cvv'].setValue("677");
+    app.paymentForm.controls['card_holder_name'].setValue("Mathew Jerome");
+    app.paymentForm.controls['card_number'].setValue("4367778679080754");
+    app.paymentForm.controls['expiry_month'].setValue("11");
+    app.paymentForm.controls['expiry_year'].setValue("2017");
+    app.paymentForm.controls['cvc'].setValue("677");
     app.submitForm();
     expect(app.displayMessage).toBe("Payment Successful!");
   }));
@@ -66,11 +70,11 @@ describe('AppComponent', () => {
   it('submit button should display the failure message', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    app.paymentForm.controls['nameOnCard'].setValue("Mathew Jerome");
-    app.paymentForm.controls['cardNumber'].setValue("345623456784567");
-    app.paymentForm.controls['expirationMonth'].setValue("15");
-    app.paymentForm.controls['expirationYear'].setValue("2017");
-    app.paymentForm.controls['cvv'].setValue("6776");
+    app.paymentForm.controls['card_holder_name'].setValue("Mathew Jerome");
+    app.paymentForm.controls['card_number'].setValue("4367778679080754");
+    app.paymentForm.controls['expiry_month'].setValue("15");
+    app.paymentForm.controls['expiry_year'].setValue("2017");
+    app.paymentForm.controls['cvc'].setValue("6776");
     app.submitForm();
     expect(app.displayMessage).toBe("Payment Failed!");
   }));

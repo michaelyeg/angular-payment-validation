@@ -1,34 +1,40 @@
 <div>
-  <form [formGroup]="paymentForm">
+  <form [formGroup]="paymentForm" (ngSubmit)="submitForm()">
 
-    <div class="form-group">
+    <div class="form-group card-holder-name">
       <label>Name on Card</label>
-      <input class="form-control" type="text" placeholder="John Krane">
-      <div class="alert alert-danger">Invalid Cardholder Name.</div>
+      <input class="form-control" type="text" name="card-holder-name" placeholder="John Krane"
+      required minlength="1" formControlName="card_holder_name">
+      <div class="alert alert-danger" *ngIf="paymentForm.get('card_holder_name').invalid &&
+        (paymentForm.get('card_holder_name').dirty || paymentForm.get('card_holder_name').touched)">Invalid Cardholder Name.</div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group card-number">
       <label>Card Number</label>
-      <input class="form-control" type="text" placeholder="1234123412341234">
-      <div class="alert alert-danger">Invalid Card Number.</div>
+      <input class="form-control" type="text" placeholder="1234123412341234" formControlName="card_number" ccNumber>
+      <div class="alert alert-danger" *ngIf="paymentForm.get('card_number').invalid &&
+        (paymentForm.get('card_number').dirty || paymentForm.get('card_number').touched)">Invalid Card Number.</div>
     </div>
 
     <div class="form-group expiry">
       <label>Date of Expiration</label>
-      <input class="form-control month" type="text" placeholder="07">
-      <input class="form-control year" type="text" placeholder="2017">
-      <div class="alert alert-danger">Invalid Date of Expiration.</div>
+      <input class="form-control month" type="text" placeholder="07" formControlName="expiry_month">
+      <input class="form-control year" type="text" placeholder="2017" formControlName="expiry_year">
+      <div class="alert alert-danger" *ngIf="(paymentForm.get('expiry_year').invalid || paymentForm.get('expiry_month').invalid)
+        && (paymentForm.get('expiry_month').dirty || paymentForm.get('expiry_month').touched)
+        && (paymentForm.get('expiry_year').dirty || paymentForm.get('expiry_year').touched)">Invalid Date of Expiration.</div>
     </div>
 
     <div class="form-group cvc">
       <label>CVV/CVC</label>
-      <input class="form-control" type="text" placeholder="123">
-      <div class="alert alert-danger">Invalid CVV / CVC Number.</div>
+      <input class="form-control" type="text" placeholder="123" formControlName="cvc" ccCVC>
+      <div class="alert alert-danger" *ngIf="paymentForm.get('cvc').invalid &&
+        (paymentForm.get('cvc').dirty || paymentForm.get('cvc').touched)">Invalid CVV / CVC Number.</div>
     </div>
 
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
-    <h3 class="center-block text-center"><!-- Display the message here --></h3>
+    <h3 class="center-block text-center">{{ displayMessage }}</h3>
   </form>
 </div>
