@@ -1,6 +1,6 @@
-# SolutionAnsNg2
+# Angular Payment Validation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.5. It utilizes Angular 4's [Reactive Form](https://v4.angular.io/guide/reactive-forms) module to build a basic credit card validation form.
 
 View [live demo](https://michaelyeg.github.io/angular-payment-validation/) hosted on GitHub Page.
 
